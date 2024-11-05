@@ -1,15 +1,19 @@
-import { Dispatch, SetStateAction } from "react"
+import { ChangeEvent, Dispatch, SetStateAction } from "react"
 
 type SearchProps = {
-    search:string,
+    search: string,
     setSearch: Dispatch<SetStateAction<string>>
 }
 
-const Search = ({search, setSearch}:SearchProps) => {
-    
+const Search = ({ search, setSearch }: SearchProps) => {
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+
     return (
         <div>
-            <input type="text" placeholder="Heroes" onChange={e => setSearch(e.target.value)} value={search}/>
+            <input className="w-full p-3 border border-gray-500 rounded-md" type="text" placeholder="Heroes..." onChange={handleChange} value={search} />
         </div>
     )
 }
