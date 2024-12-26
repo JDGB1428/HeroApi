@@ -1,58 +1,7 @@
-export type SuperHero = {
-    response:      string;
-    "results-for": string;
-    results:       Result[];
-}
+import { z } from "zod";
+import { HeroApiSchema, ResultHeroesApiSchema, ResultsHeroeApiSchema, SearchHeroeApiSchema } from "../utils/heroes-schema";
 
-export type Result = {
-    id:          string;
-    name:        string;
-    powerstats:  Powerstats;
-    biography:   Biography;
-    appearance:  Appearance;
-    work:        Work;
-    connections: Connections;
-    image:       Image;
-}
-
-export type Appearance = {
-    gender:       string;
-    race:         string;
-    height:       string[];
-    weight:       string[];
-    "eye-color":  string;
-    "hair-color": string;
-}
-
-export type Biography = {
-    "full-name":        string;
-    "alter-egos":       string;
-    aliases:            string[];
-    "place-of-birth":   string;
-    "first-appearance": string;
-    publisher:          string;
-    alignment:          string;
-}
-
-export type Connections = {
-    "group-affiliation": string;
-    relatives:           string;
-}
-
-export type Image = {
-    url: string;
-}
-
-export type Powerstats = {
-    intelligence: string;
-    strength:     string;
-    speed:        string;
-    durability:   string;
-    power:        string;
-    combat:       string;
-}
-
-export type Work = {
-    occupation: string;
-    base:       string;
-}
+export type Search = z.infer<typeof SearchHeroeApiSchema>
+export type Result = z.infer<typeof ResultsHeroeApiSchema>
+export type ResultHeroes = z.infer<typeof ResultHeroesApiSchema>
+export type Hero = z.infer<typeof HeroApiSchema>

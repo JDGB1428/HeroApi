@@ -1,20 +1,44 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
+import { useAppStore } from "../store/useAppStore"
 
-type SearchProps = {
-    search: string,
-    setSearch: Dispatch<SetStateAction<string>>
-}
 
-const Search = ({ search, setSearch }: SearchProps) => {
+const Search = () => {
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value)
+    const[searchFilters, setSearchFilters] = useState({
+        name:''
+    })
+
+    const search = useAppStore(state => state.fetchHeroesBySearch)
+
+    const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
+        setSearchFilters({
+            ...searchFilters,
+            [e.target.name] : e.target.value
+        })
+    }
+    
+    const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
+        e.preventDefault();
+        if(Object.values(searchFilters).includes('')){
+            console.log('todos los campos son obligatorio')
+            return
+        }
+        search(searchFilters)
     }
 
     return (
-        <div>
-            <input className="w-full p-3 border border-gray-500 rounded-md" type="text" placeholder="Heroes..." onChange={handleChange} value={search} />
-        </div>
+        <form onSubmit={handleSubmit} className="p-10 my-5 bg-indigo-800 rounded md:w-1/2 2xl:w-1/3">
+            <div className="mb-5">
+                <label htmlFor="name" className="text-3xl font-extrabold text-white">Busca tu super heroes</label>
+                <input className="w-full p-3 border border-gray-500 rounded-md" 
+                        type="text" placeholder="Heroes..."
+                        name="name" 
+                        onChange={handleChange} 
+                        value={searchFilters.name}/>
+            </div>
+            <input type="submit" className="w-full p-3 font-bold uppercase bg-indigo-400 rounded-md cursor-pointer" value='Buscar' />
+        </form>
+        
     )
 }
 
