@@ -1,6 +1,7 @@
 import { StateCreator } from "zustand";
 import { getHeroById, getSearchByName } from "../services/heroesServices";
 import { Hero, Result, ResultHeroes, Search } from "../types/SuperHero";
+import { FavoriteSliceType } from "./FavoriteSlice";
 
 export type HeroeSliceType ={
     heroes: Result
@@ -13,7 +14,7 @@ export type HeroeSliceType ={
 
 
 
-export const CreateHeroeSlice: StateCreator<HeroeSliceType> = (set) => ({
+export const CreateHeroeSlice: StateCreator<HeroeSliceType & FavoriteSliceType, [], [], HeroeSliceType> = (set) => ({
     heroes:{
         results:[]
     },

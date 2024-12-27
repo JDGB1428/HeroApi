@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
 import ModalHeroes from "../components/ModalHeroes";
+import Notification from "../components/Notification";
 
 export default function Layouts() {
   return (
@@ -10,6 +11,7 @@ export default function Layouts() {
         <Outlet/>
       </main>
       <ModalHeroes/>
+      <Notification/>
     </>
   )
 }

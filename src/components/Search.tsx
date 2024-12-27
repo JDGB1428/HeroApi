@@ -9,6 +9,7 @@ const Search = () => {
     })
 
     const search = useAppStore(state => state.fetchHeroesBySearch)
+    const notification = useAppStore(state => state.ShowNotification)
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         setSearchFilters({
@@ -20,7 +21,10 @@ const Search = () => {
     const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
         if(Object.values(searchFilters).includes('')){
-            console.log('todos los campos son obligatorio')
+            notification({
+                text:'Todos los campos son obligatorios',
+                error:true
+            })
             return
         }
         search(searchFilters)

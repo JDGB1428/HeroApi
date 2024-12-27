@@ -5,6 +5,8 @@ export default function ModalHeroes() {
 
     const modal = useAppStore(state => state.modal)
     const select_heroe = useAppStore(state => state.selectHeroe)
+    const SelectHeroeExist = useAppStore(state => state.favoriteHeroeExits)
+    const handleClickFavorite = useAppStore(state => state.handleClickFavorite)
     const closeModal = useAppStore(state => state.closeModal)
 
     return (
@@ -21,9 +23,23 @@ export default function ModalHeroes() {
                                 <img className="mx-auto w-96" src={select_heroe.image?.url} alt={`imagen de ${select_heroe.image?.url}`} />
                             </DialogTitle>
                             
-                            <div className="my-5">  
-                                <p>{select_heroe.work?.occupation}</p>
-                                <p>{select_heroe.work?.base}</p>
+                            <div className="my-5 space-y-5">
+                                <div>
+                                    <p className="font-bold uppercase">Apariencia</p>
+                                    <li><span className="font-bold">Genero: </span>{select_heroe.appearance?.gender}</li>
+                                    <li><span className="font-bold">Color de cabello: </span>{select_heroe.appearance?.["hair-color"]}</li>
+                                    <li><span className="font-bold">Color de ojos: </span>{select_heroe.appearance?.["eye-color"]}</li>
+                                    <li><span className="font-bold">Peso: </span>{select_heroe.appearance?.weight[1]}</li>
+                                    <li><span className="font-bold">Altura: </span>{select_heroe.appearance?.height[1]}</li>
+                                </div>
+                                <div>
+                                    <p><span className="font-bold">Ocupacion: </span>{select_heroe.work?.occupation}</p>
+                                    <p><span className="font-bold">Base: </span>{select_heroe.work?.base}</p>
+                                </div>  
+                                <div>
+                                    <p className="font-bold uppercase">Peliculas o series aparecidas</p>
+                                    <p>{select_heroe.connections?.["group-affiliation"]}</p>
+                                </div>
                             </div>
                             <div className="flex justify-center gap-4 mx-4 ">
                                 <Button
@@ -32,8 +48,11 @@ export default function ModalHeroes() {
                                 >
                                     Cerrar
                                 </Button>
-                                <Button className="w-full p-3 font-bold text-white transition-all bg-indigo-800 rounded-md hover:bg-indigo-400">
-                                    Agregar a favoritos
+                                <Button 
+                                    className="w-full p-3 font-bold text-white transition-all bg-indigo-800 rounded-md hover:bg-indigo-400"
+                                    onClick={()=> handleClickFavorite(select_heroe)}
+                                >
+                                    {SelectHeroeExist(select_heroe.id) ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
                                 </Button>
                             </div>
                         </DialogPanel>
